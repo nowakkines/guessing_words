@@ -1,6 +1,8 @@
+import dis
 from random import choice
 from rich.console import Console
 console = Console()
+COUNTER = 0
 
 word_list = ['год', 'человек', 'время', 'дело', 'жизнь', 'день', 'рука', 'раз', 'работа', 'слово', 'место', 'лицо',
             'друг', 'глаз', 'вопрос', 'дом', 'сторона', 'страна', 'мир', 'случай', 'голова', 'ребенок', 'сила', 'конец',
@@ -106,7 +108,7 @@ word_list = ['год', 'человек', 'время', 'дело', 'жизнь',
             'препарат', 'действительность', 'москвич', 'остаток', 'изображение', 'сделка', 'сочинение',
             'покупатель', 'танк', 'затрата', 'строка', 'единица']
 
-array = 'AZBAKA'
+word = 'AZKABAN'
 
 
 def get_word(array):
@@ -118,29 +120,22 @@ def is_valid(value):
    return value.isalpha()
 
 def play(result):
+   global guessed_letters
+   global word_completion
+   global tries
    tries  = 5
-   word_completion = '_' * len(array)
-   guessed = False
+   word_completion = '_' * len(word)
    guessed_letters = []
    guessed_words = []
    just_index = []
    # //////////////////////////////////////////
    print('Давайте играть в угадайку слов!')
    print(display_hangman(tries))
-   print(word_completion, array)
+   print(word_completion, word)
    # //////////////////////////////////////////
 
-   while len(guessed_letters) != 3:
-      what = input('Write a word >> ')
-
-      for index, chr in enumerate(array):
-         if chr == what:
-            just_index.append(index)
-
-
-      # guessed_letters.append(what)
-   # print(guessed_letters)
-
+def is_valid(value):
+   return value.isalpha() and (len(value) == 1 or len(value) == len(word))
 
 
 def display_hangman(tries):  #принимает один аргумент tries – количество попыток угадывания слова и возвращает текущее состояние игры в графическом виде
@@ -208,3 +203,47 @@ def display_hangman(tries):  #принимает один аргумент tries
 
 
 get_word(word_list)
+
+flag = False
+COUNTER = 0
+word_as_lst = list(word_completion)
+while word_completion != word and tries != 0:
+   letter = input('Введите букву или слово >> ')
+   indices = [x for x in range(len(word)) if word[x] == letter]
+   # If there is no letter and it's correct
+   if is_valid(letter):
+      if len(letter) == 1 and letter in guessed_letters:
+         print('Youve intered that word, so we past it')
+      if letter == word: # if len(letter) == len(word) and letter == word:
+         print('Perfect')
+         break
+      elif len(letter) == 1 and letter not in word:
+         print('I cant find your letter')
+         tries -= 1
+         print(display_hangman(tries))
+      elif len(letter) == 1 and letter in word and letter not in guessed_letters:
+         guessed_letters.append(letter)
+         for index in indices:
+            word_as_lst[index] = letter
+            word_completion = ''.join(word_as_lst)
+         print(word_completion)
+   elif not is_valid(letter):
+      print('Are u sure? Trynna again')
+
+#FIXME: Refactoring
+
+
+   #  user = input('>> ')
+   #  if tries == 1:
+   #      break
+   #  elif user not in array:
+   #      print('not god')
+   #      tries -= 1
+   #      print(tries)
+   #      continue
+   #  index = array.index(user)
+   #  indices = [x for x in range(len(array)) if array[x] == user]
+   #  for index in indices:
+   #      word_as_lst[index] = user
+   #      word_completion = ''.join(word_as_lst)
+   #  print(word_completion)
