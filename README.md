@@ -22,8 +22,3 @@
 <div id="header" align="center">
   <img src='https://media4.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif?cid=ecf05e474zlbi6s3k0zz7ac6ygvu47nc1606qv4zea5kpt8r&rid=giphy.gif&ct=g' width="450"/>
 </div>
-
-
-<div id="header" align="center">
-"Guessing Words"
-</div> 
