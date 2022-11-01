@@ -200,6 +200,7 @@ def hello():
 
 
 def play(tries):
+    global guessed_letters, guessed_word
     result = get_word(word_list)
     word_completion = '_' * len(result)
     word_as_lst = list(word_completion)
@@ -214,26 +215,24 @@ def play(tries):
 def gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, tries):
     global STOP_GAME
     while STOP_GAME != True:
-    # global STOP_GAME
-    # while STOP_GAME != True:
         letter = input('Введите букву или слово >> ')
+        print(guessed_word)
         indices = [x for x in range(len(result)) if result[x] == letter]
-        if is_valid(letter, result):
+        if letter == 'помощь':
+            show_info()
+        elif is_valid(letter, result):
             if len(letter) == 1 and letter in guessed_letters:
                 print('[red]Вы ввели букву, которая была использована.')
             elif len(letter) == 1 and letter not in result:
                 print('Вы ввели неправильную букву. Т.к вы ввели неправильно - ваша попытка исчерпана.')
                 tries -= 1
-                # console.print('↓↓  Ваше текущее положение ↓↓ ', justify='center')
-                # print(display_hangman(tries))
             elif tries == 0:
                 print('Попытки ваши закончились, поэтому вы проиграли :(')
-                again()
             elif letter == result: # if len(letter) == len(word) and letter == word:
                 print('Вы отгадали слово, вы умница.')
-                again()
             elif len(letter) == len(result) and letter in guessed_word:
                 console.print('[red]Вы уже вводили это слово и собираетесь его снова использовать?')
+                show_info()
                 continue
             elif len(letter) == 1 and letter in result and letter not in guessed_letters:
                 guessed_letters.append(letter)
@@ -246,11 +245,14 @@ def gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, 
                 print('Веденное слово было неправильно. Поэтому вы отнимает у вас попытку')
                 guessed_word.append(letter)
                 tries -= 1
+                show_info()
                 # print(display_hangman(tries))
 
         if word_completion == result:
             print('Вы отгадали слово, вы молодец!')
             again()
+
+
 
 
 def again():
@@ -266,6 +268,21 @@ def again():
             console.print(Panel('Вы ввели недопустимый символ.', title='[red]Error'), justify='center')
             again()
 
+
+def show_info():
+    info = input('Что вы бы хотели увидеть? (буквы, слова, попытки, положение)')
+    match info:
+        case 'буквы':
+            print(*guessed_letters)
+        case 'слова':
+            print(*guessed_word)
+        case 'попытки':
+            print(tries * heart)
+        case 'положение':
+            console.print('↓↓  Ваше текущее положение ↓↓ ', justify='center')
+            print(display_hangman(tries))
+        case '_':
+            pass
 
 #TODO: Добавить функцию для отображения попыток.
 #TODO: Добавить функцию для повтора.
