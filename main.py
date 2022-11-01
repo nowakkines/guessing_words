@@ -276,9 +276,9 @@ def show_info():
     Что вы бы хотели увидеть? ([blue]'БУКВЫ'[/blue], [yellow]'СЛОВА'[/yellow], [red]'ПОПЫТКИ'[/red], [white]'ПОЛОЖЕНИЕ') >>
     ''')
     match info:
-        case 'буквы':
+        case 'БУКВЫ':
             print(*guessed_letters)
-        case 'слова':
+        case 'СЛОВА':
             print(*guessed_word)
         case 'ПОПЫТКИ':
             print(tries * heart)
