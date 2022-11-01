@@ -187,8 +187,11 @@ def hello():
     console.print(Panel(
       '''
       Правила довольно просты : вы должны ввести либо букву, либо слово.
-      [red]У вас имеется только 5 попыток[/red]. Все буквы заглавные! С помощью команды [red]info[/red], вы можете узнать: [blue]кол-во попыток, названые буквы и слова.
+      [red]У вас имеется только 5 попыток[/red]. Все буквы заглавные! С помощью команды [red]инфо[/red], вы можете узнать: [blue]кол-во попыток, названые буквы и слова.
       ''', title='Hangman'), justify='center')
+    play(tries)
+
+
 def play(tries):
     global guessed_letters, guessed_word
     result = get_word(word_list)
@@ -197,33 +200,40 @@ def play(tries):
     guessed_letters = []
     guessed_word = []
     word_count = word_completion.count('_')
-    for _ in track(range(50), description='[green]Processing...'):
-        sleep(0.03)
+
+    # for _ in track(range(50), description='[green]Processing...'):
+    #     sleep(0.03)
     print(f'[red]Слово было сгенерировано[/red]: {word_completion} ОСТАЛОСЬ {word_count} БУКВ {result}')
     gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, tries)
 
+
 def gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, tries):
     global STOP_GAME
-    while STOP_GAME != True:
-        letter = input('Введите букву или слово >> ')
-        print(guessed_word)
+    while STOP_GAME != True and word_completion != result:
+        letter = input('Введите букву или слово >> ').upper()
         indices = [x for x in range(len(result)) if result[x] == letter]
-        if letter == 'помощь':
-            show_info()
-        elif is_valid(letter, result):
-            if len(letter) == 1 and letter in guessed_letters:
+
+        if is_valid(letter, result):
+
+            if tries == 0:
+                again()
+
+            elif len(letter) == 1 and letter in guessed_letters:
                 print('[red]Вы ввели букву, которая была использована.')
+
             elif len(letter) == 1 and letter not in result:
-                print('Вы ввели неправильную букву. Т.к вы ввели неправильно - ваша попытка исчерпана.')
+                console.print('Вы ввели неправильную букву - [red]ваша попытка исчерпана[/red].')
                 tries -= 1
-            elif tries == 0:
-                print('Попытки ваши закончились, поэтому вы проиграли :(')
-            elif letter == result: # if len(letter) == len(word) and letter == word:
+
+            elif letter == result:
                 print('Вы отгадали слово, вы умница.')
+                again()
+
             elif len(letter) == len(result) and letter in guessed_word:
                 console.print('[red]Вы уже вводили это слово и собираетесь его снова использовать?')
                 show_info()
                 continue
+
             elif len(letter) == 1 and letter in result and letter not in guessed_letters:
                 guessed_letters.append(letter)
                 for index in indices:
@@ -235,11 +245,12 @@ def gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, 
                 print('Веденное слово было неправильно. Поэтому вы отнимает у вас попытку')
                 guessed_word.append(letter)
                 tries -= 1
-                show_info()
-                # print(display_hangman(tries))
 
+        else:
+            console.print(Panel('Вы ввели недопустимый символ или ваша длина не совпадает.', title='[red]Error'))
+
+    else:
         if word_completion == result:
-            print('Вы отгадали слово, вы молодец!')
             again()
 
 
@@ -258,21 +269,21 @@ def again():
 
 
 def show_info():
-    info = input('Что вы бы хотели увидеть? (буквы, слова, попытки, положение)')
+    info = input('Что вы бы хотели увидеть? (буквы, слова, попытки, положение) >> ')
     match info:
         case 'буквы':
             print(*guessed_letters)
         case 'слова':
             print(*guessed_word)
-        case 'попытки':
+        case 'ПОПЫТКИ':
             print(tries * heart)
-        case 'положение':
+        case 'ПОЛОЖЕНИЕ':
             console.print('↓↓  Ваше текущее положение ↓↓ ', justify='center')
             print(display_hangman(tries))
         case '_':
             pass
 
-#
+
 def is_valid(value, result):
     return value.isalpha() and (len(value) == 1 or len(value) == len(result))
 
