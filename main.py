@@ -189,8 +189,6 @@ def hello():
       Правила довольно просты : вы должны ввести либо букву, либо слово.
       [red]У вас имеется только 5 попыток[/red]. Все буквы заглавные! С помощью команды [red]info[/red], вы можете узнать: [blue]кол-во попыток, названые буквы и слова.
       ''', title='Hangman'), justify='center')
-
-
 def play(tries):
     global guessed_letters, guessed_word
     result = get_word(word_list)
