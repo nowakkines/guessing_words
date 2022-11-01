@@ -213,7 +213,10 @@ def gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, 
         letter = input('Введите букву или слово >> ').upper()
         indices = [x for x in range(len(result)) if result[x] == letter]
 
-        if is_valid(letter, result):
+        if letter == 'ИНФО' or 'INFO':
+            show_info()
+
+        elif is_valid(letter, result):
 
             if tries == 0:
                 again()
@@ -269,7 +272,9 @@ def again():
 
 
 def show_info():
-    info = input('Что вы бы хотели увидеть? (буквы, слова, попытки, положение) >> ')
+    info = console.input('''
+    Что вы бы хотели увидеть? ([blue]'БУКВЫ'[/blue], [yellow]'СЛОВА'[/yellow], [red]'ПОПЫТКИ'[/red], [white]'ПОЛОЖЕНИЕ') >>
+    ''')
     match info:
         case 'буквы':
             print(*guessed_letters)
