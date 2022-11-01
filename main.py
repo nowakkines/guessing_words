@@ -201,8 +201,8 @@ def play(tries):
     guessed_word = []
     word_count = word_completion.count('_')
 
-    # for _ in track(range(50), description='[green]Processing...'):
-    #     sleep(0.03)
+    for _ in track(range(50), description='[green]Processing...'):
+        sleep(0.03)
     print(f'[red]Слово было сгенерировано[/red]: {word_completion} ОСТАЛОСЬ {word_count} БУКВ {result}')
     gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, tries)
 
@@ -273,8 +273,8 @@ def again():
 
 def show_info():
     info = console.input('''
-    Что вы бы хотели увидеть? ([blue]'БУКВЫ'[/blue], [yellow]'СЛОВА'[/yellow], [red]'ПОПЫТКИ'[/red], [white]'ПОЛОЖЕНИЕ') >>
-    ''')
+    Что вы бы хотели увидеть? ([blue]'БУКВЫ'[/blue], [yellow]'СЛОВА'[/yellow], [red]'ПОПЫТКИ'[/red], [green]'ПОЛОЖЕНИЕ')
+    >> ''')
     match info:
         case 'БУКВЫ':
             print(*guessed_letters)
@@ -285,8 +285,8 @@ def show_info():
         case 'ПОЛОЖЕНИЕ':
             console.print('↓↓  Ваше текущее положение ↓↓ ', justify='center')
             print(display_hangman(tries))
-        case '_':
-            pass
+        case _:
+            console.print(Panel('Вы ввели недопустимый символ.', title='[red]Error'))
 
 
 def is_valid(value, result):
