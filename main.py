@@ -124,8 +124,8 @@ def get_word(word_list):
     return choice(word_list).upper()
 
 
-def display_hangman(tries):  #принимает один аргумент tries – количество попыток угадывания слова и возвращает текущее состояние игры в графическом виде
-    stages = [  # финальное состояние: голова, торс, обе руки, обе ноги
+def display_hangman(tries):
+    stages = [
                 '''
                    --------
                    |      |
@@ -134,7 +134,6 @@ def display_hangman(tries):  #принимает один аргумент tries
                    |      |
                    |     / \\
                 ''',
-                # голова, торс, обе руки, одна нога
                 '''
                    --------
                    |      |
@@ -144,7 +143,6 @@ def display_hangman(tries):  #принимает один аргумент tries
                    |     /
                    -
                 ''',
-                # голова, торс, обе руки
                  '''
                    --------
                    |      |
@@ -154,7 +152,6 @@ def display_hangman(tries):  #принимает один аргумент tries
                    |
                    -
                 ''',
-               # голова и торс
                 '''
                    --------
                    |      |
@@ -164,7 +161,6 @@ def display_hangman(tries):  #принимает один аргумент tries
                    |
                    -
                 ''',
-                # голова
                 '''
                    --------
                    |      |
@@ -173,7 +169,7 @@ def display_hangman(tries):  #принимает один аргумент tries
                    |
                    |
                    -
-                ''',                  # начальное состояние
+                ''',
                 '''
                    --------
                    |      |
@@ -191,12 +187,8 @@ def hello():
     console.print(Panel(
       '''
       Правила довольно просты : вы должны ввести либо букву, либо слово.
-      [red]У вас имеется только 5 попыток[/red], но помните, что при вводе неправильного слово вы автоматически проигрываете.
-      Все буквы заглавные!
+      [red]У вас имеется только 5 попыток[/red]. Все буквы заглавные! С помощью команды [red]info[/red], вы можете узнать: [blue]кол-во попыток, названые буквы и слова.
       ''', title='Hangman'), justify='center')
-    console.print('↓↓  Ваше текущее положение ↓↓ ', justify='center')
-    print(display_hangman(tries))
-    play(tries)
 
 
 def play(tries):
@@ -253,8 +245,6 @@ def gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, 
             again()
 
 
-
-
 def again():
     global STOP_GAME
     question = input('Желаете ли продолжить игру? (+/-) >> ')
@@ -284,12 +274,10 @@ def show_info():
         case '_':
             pass
 
-#TODO: Добавить функцию для отображения попыток.
-#TODO: Добавить функцию для повтора.
-#FIXME: Не отображается информация, если в конечном вводить все правильные буквы.
-
+#
 def is_valid(value, result):
     return value.isalpha() and (len(value) == 1 or len(value) == len(result))
-if __name__ == '__main__':
 
+
+if __name__ == '__main__':
     hello()
