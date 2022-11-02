@@ -246,6 +246,7 @@ def gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, 
                 print('Вы отгадали слово, вы умница.')
                 again()
 
+
             elif len(letter) == len(result) and letter in guessed_word:
                 console.print('[red]Вы уже вводили это слово и собираетесь его снова использовать?')
                 show_info(guessed_letters, guessed_word)
