@@ -193,7 +193,6 @@ def hello():
 
 
 def play(tries):
-    # global guessed_letters, guessed_word
     result = get_word(word_list)
     word_completion = '_' * len(result)
     word_as_lst = list(word_completion)
@@ -207,15 +206,28 @@ def play(tries):
     gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, tries)
 
 
+
+def again():
+    global STOP_GAME
+    question = input('Желаете ли продолжить игру? (+/-) >> ')
+    match question:
+        case '+':
+            play(tries)
+        case '-':
+            console.print('[blue](͡° ͜ʖ ͡°) Спасибо, что сыграли в игру. (͡° ͜ʖ ͡°)', justify='center')
+            STOP_GAME = True
+        case _:
+            console.print(Panel('Вы ввели недопустимый символ.', title='[red]Error'), justify='center')
+            again(STOP_GAME)
+
+
 def gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, tries):
-    # global STOP_GAME
     while STOP_GAME != True and word_completion != result:
         letter = input('Введите букву или слово >> ').upper()
         indices = [x for x in range(len(result)) if result[x] == letter]
 
         if letter == 'ИНФО' or letter == 'INFO':
-            # show_info(guessed_letters, guessed_word)
-            print(1)
+            show_info(guessed_letters, guessed_word)
 
         elif is_valid(letter, result):
 
@@ -249,30 +261,14 @@ def gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, 
                 print('Веденное слово было неправильно. Поэтому вы отнимает у вас попытку')
                 guessed_word.append(letter)
                 tries -= 1
-
         else:
             console.print(Panel('Вы ввели недопустимый символ или ваша длина не совпадает.', title='[red]Error'))
-
     else:
         if word_completion == result:
             again()
 
 
-def again():
-    # global STOP_GAME
-    question = input('Желаете ли продолжить игру? (+/-) >> ')
-    match question:
-        case '+':
-            play(tries)
-        case '-':
-            console.print('[blue](͡° ͜ʖ ͡°) Спасибо, что сыграли в игру. (͡° ͜ʖ ͡°)', justify='center')
-            STOP_GAME = True
-        case _:
-            console.print(Panel('Вы ввели недопустимый символ.', title='[red]Error'), justify='center')
-            again()
-
-
-def show_info():
+def show_info(guessed_letters, guessed_word):
     info = console.input('''
     Что вы бы хотели увидеть? ([blue]'БУКВЫ'[/blue], [yellow]'СЛОВА'[/yellow], [red]'ПОПЫТКИ'[/red], [green]'ПОЛОЖЕНИЕ')
     >> ''')
