@@ -274,8 +274,10 @@ def show_info(guessed_letters, guessed_word):
     >> ''')
     match info:
         case 'БУКВЫ':
+            print('Ваши использованные буквы: ', end='')
             print(*guessed_letters)
         case 'СЛОВА':
+            print('Ваши использованные слова: ', end='')
             print(*guessed_word)
         case 'ПОПЫТКИ':
             print(tries * heart)
