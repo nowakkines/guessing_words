@@ -210,15 +210,15 @@ def play(tries):
 
 def again():
     global STOP_GAME
-    question = input('Желаете ли продолжить игру? (+/-) >> ')
+    question = input('Do you want to continue the game?(+/-) >> ')
     match question:
         case '+':
             play(tries)
         case '-':
-            console.print('[blue](͡° ͜ʖ ͡°) Спасибо, что сыграли в игру. (͡° ͜ʖ ͡°)', justify='center')
+            console.print('[blue]Thank you for playing the game.', justify='center')
             STOP_GAME = True
         case _:
-            console.print(Panel('Вы ввели недопустимый символ.', title='[red]Error'), justify='center')
+            console.print(Panel('You have entered an invalid character.', title='[red]Error'), justify='center')
             again(STOP_GAME)
 
 
