@@ -203,7 +203,7 @@ def play(tries):
 
     for _ in track(range(50), description='[green]Processing...'):
         sleep(0.03)
-    print(f'[red]Слово было сгенерировано[/red]: {word_completion} ОСТАЛОСЬ {word_count} БУКВ {result}')
+    print(f'[red]The word was generated[/red]: {word_completion} REMAINED {word_count} LETTERS {result}')
     gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, tries)
 
 
