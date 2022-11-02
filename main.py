@@ -271,22 +271,22 @@ def gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, 
 
 def show_info(guessed_letters, guessed_word):
     info = console.input('''
-    Что вы бы хотели увидеть? ([blue]'БУКВЫ'[/blue], [yellow]'СЛОВА'[/yellow], [red]'ПОПЫТКИ'[/red], [green]'ПОЛОЖЕНИЕ')
+    What would you like to see? ([blue]'LETTERS'[/blue], [yellow]'WORDS'[/yellow], [red]'ATTEMPTS'[/red], [green]'POSITION')
     >> ''')
     match info:
-        case 'БУКВЫ':
-            print('Ваши использованные буквы: ', end='')
+        case 'LETTERS':
+            print('Your used letters: ', end='')
             print(*guessed_letters)
-        case 'СЛОВА':
-            print('Ваши использованные слова: ', end='')
+        case 'WORDS':
+            print('Your used words: ', end='')
             print(*guessed_word)
-        case 'ПОПЫТКИ':
+        case 'ATTEMPTS':
             print(tries * heart)
-        case 'ПОЛОЖЕНИЕ':
-            console.print('↓↓  Ваше текущее положение ↓↓ ', justify='center')
+        case 'POSITION':
+            console.print('↓↓  Your current position ↓↓ ', justify='center')
             print(display_hangman(tries))
         case _:
-            console.print(Panel('Вы ввели недопустимый символ.', title='[red]Error'))
+            console.print(Panel('You have entered an invalid character.', title='[red]Error'))
 
 
 def is_valid(value, result):
