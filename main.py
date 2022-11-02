@@ -187,8 +187,8 @@ def display_hangman(tries):
 def hello():
     console.print(Panel(
       '''
-      Правила довольно просты : вы должны ввести либо букву, либо слово.
-      [red]У вас имеется только 5 попыток[/red]. Все буквы заглавные! С помощью команды [red]инфо[/red], вы можете узнать: [blue]кол-во попыток, названые буквы и слова.
+      The rules are pretty simple : you must enter either a letter or a word..
+      [red]You have only 5 attempts[/red]. All letters are uppercase! Using the command [red]info[/red], you can find out : [blue]number of attempts, named letters and words.
       ''', title='Hangman'), justify='center')
     play(tries)
 
