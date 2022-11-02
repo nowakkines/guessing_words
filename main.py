@@ -203,31 +203,31 @@ def play(tries):
 
     for _ in track(range(50), description='[green]Processing...'):
         sleep(0.03)
-    print(f'[red]The word was generated[/red]: {word_completion} REMAINED {word_count} LETTERS {result}')
+    print(f'[red]Слово было сгенерировано[/red]: {word_completion} ОСТАЛОСЬ {word_count} БУКВ {result}')
     gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, tries)
 
 
 
 def again():
     global STOP_GAME
-    question = input('Do you want to continue the game?(+/-) >> ')
+    question = input('Желаете ли продолжить игру? (+/-) >> ')
     match question:
         case '+':
             play(tries)
         case '-':
-            console.print('[blue]Thank you for playing the game.', justify='center')
+            console.print('[blue](͡° ͜ʖ ͡°) Спасибо, что сыграли в игру. (͡° ͜ʖ ͡°)', justify='center')
             STOP_GAME = True
         case _:
-            console.print(Panel('You have entered an invalid character.', title='[red]Error'), justify='center')
+            console.print(Panel('Вы ввели недопустимый символ.', title='[red]Error'), justify='center')
             again(STOP_GAME)
 
 
 def gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, tries):
     while STOP_GAME != True and word_completion != result:
-        letter = input('Enter a letter or word >> ').upper()
+        letter = input('Введите букву или слово >> ').upper()
         indices = [x for x in range(len(result)) if result[x] == letter]
 
-        if letter == 'INFO':
+        if letter == 'ИНФО' or letter == 'INFO':
             show_info(guessed_letters, guessed_word)
 
         elif is_valid(letter, result):
@@ -236,18 +236,18 @@ def gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, 
                 again()
 
             elif len(letter) == 1 and letter in guessed_letters:
-                print('[red]You have entered the letter that was used.')
+                print('[red]Вы ввели букву, которая была использована.')
 
             elif len(letter) == 1 and letter not in result:
-                console.print('You entered the wrong letter - [red]your attempt is exhausted[/red].')
+                console.print('Вы ввели неправильную букву - [red]ваша попытка исчерпана[/red].')
                 tries -= 1
 
             elif letter == result:
-                print('You guessed the word, you\'re a good.')
+                print('Вы отгадали слово, вы умница.')
                 again()
 
             elif len(letter) == len(result) and letter in guessed_word:
-                console.print('[red]Have you already entered this word and are you going to use it again?')
+                console.print('[red]Вы уже вводили это слово и собираетесь его снова использовать?')
                 show_info(guessed_letters, guessed_word)
                 continue
 
@@ -259,11 +259,11 @@ def gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, 
                 print(word_completion)
 
             elif len(letter) == len(result) and letter != result:
-                print('The word entered was incorrect. So you take away your attempt')
+                print('Веденное слово было неправильно. Поэтому вы отнимает у вас попытку')
                 guessed_word.append(letter)
                 tries -= 1
         else:
-            console.print(Panel('You have entered an invalid character or your length does not match.', title='[red]Error'))
+            console.print(Panel('Вы ввели недопустимый символ или ваша длина не совпадает.', title='[red]Error'))
     else:
         if word_completion == result:
             again()
@@ -271,22 +271,22 @@ def gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, 
 
 def show_info(guessed_letters, guessed_word):
     info = console.input('''
-    What would you like to see? ([blue]'LETTERS'[/blue], [yellow]'WORDS'[/yellow], [red]'ATTEMPTS'[/red], [green]'POSITION')
+    Что вы бы хотели увидеть? ([blue]'БУКВЫ'[/blue], [yellow]'СЛОВА'[/yellow], [red]'ПОПЫТКИ'[/red], [green]'ПОЛОЖЕНИЕ')
     >> ''')
     match info:
-        case 'LETTERS':
-            print('Your used letters: ', end='')
+        case 'БУКВЫ':
+            print('Ваши использованные буквы: ', end='')
             print(*guessed_letters)
-        case 'WORDS':
-            print('Your used words: ', end='')
+        case 'СЛОВА':
+            print('Ваши использованные слова: ', end='')
             print(*guessed_word)
-        case 'ATTEMPTS':
+        case 'ПОПЫТКИ':
             print(tries * heart)
-        case 'POSITION':
-            console.print('↓↓  Your current position ↓↓ ', justify='center')
+        case 'ПОЛОЖЕНИЕ':
+            console.print('↓↓  Ваше текущее положение ↓↓ ', justify='center')
             print(display_hangman(tries))
         case _:
-            console.print(Panel('You have entered an invalid character.', title='[red]Error'))
+            console.print(Panel('Вы ввели недопустимый символ.', title='[red]Error'))
 
 
 def is_valid(value, result):
