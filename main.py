@@ -224,10 +224,10 @@ def again():
 
 def gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, tries):
     while STOP_GAME != True and word_completion != result:
-        letter = input('Введите букву или слово >> ').upper()
+        letter = input('Enter a letter or word >> ').upper()
         indices = [x for x in range(len(result)) if result[x] == letter]
 
-        if letter == 'ИНФО' or letter == 'INFO':
+        if letter == 'INFO':
             show_info(guessed_letters, guessed_word)
 
         elif is_valid(letter, result):
@@ -236,18 +236,18 @@ def gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, 
                 again()
 
             elif len(letter) == 1 and letter in guessed_letters:
-                print('[red]Вы ввели букву, которая была использована.')
+                print('[red]You have entered the letter that was used.')
 
             elif len(letter) == 1 and letter not in result:
-                console.print('Вы ввели неправильную букву - [red]ваша попытка исчерпана[/red].')
+                console.print('You entered the wrong letter - [red]your attempt is exhausted[/red].')
                 tries -= 1
 
             elif letter == result:
-                print('Вы отгадали слово, вы умница.')
+                print('You guessed the word, you\'re a good.')
                 again()
 
             elif len(letter) == len(result) and letter in guessed_word:
-                console.print('[red]Вы уже вводили это слово и собираетесь его снова использовать?')
+                console.print('[red]Have you already entered this word and are you going to use it again?')
                 show_info(guessed_letters, guessed_word)
                 continue
 
@@ -259,11 +259,11 @@ def gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, 
                 print(word_completion)
 
             elif len(letter) == len(result) and letter != result:
-                print('Веденное слово было неправильно. Поэтому вы отнимает у вас попытку')
+                print('The word entered was incorrect. So you take away your attempt')
                 guessed_word.append(letter)
                 tries -= 1
         else:
-            console.print(Panel('Вы ввели недопустимый символ или ваша длина не совпадает.', title='[red]Error'))
+            console.print(Panel('You have entered an invalid character or your length does not match.', title='[red]Error'))
     else:
         if word_completion == result:
             again()
