@@ -246,6 +246,7 @@ def gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, 
                 print('You guessed the word, you\'re a good.')
                 again()
 
+
             elif len(letter) == len(result) and letter in guessed_word:
                 console.print('[red]Have you already entered this word and are you going to use it again?')
                 show_info(guessed_letters, guessed_word)
