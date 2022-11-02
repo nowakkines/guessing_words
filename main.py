@@ -193,7 +193,7 @@ def hello():
 
 
 def play(tries):
-    global guessed_letters, guessed_word
+    # global guessed_letters, guessed_word
     result = get_word(word_list)
     word_completion = '_' * len(result)
     word_as_lst = list(word_completion)
@@ -208,13 +208,14 @@ def play(tries):
 
 
 def gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, tries):
-    global STOP_GAME
+    # global STOP_GAME
     while STOP_GAME != True and word_completion != result:
         letter = input('Введите букву или слово >> ').upper()
         indices = [x for x in range(len(result)) if result[x] == letter]
 
-        if letter == 'ИНФО' or 'INFO':
-            show_info()
+        if letter == 'ИНФО' or letter == 'INFO':
+            # show_info(guessed_letters, guessed_word)
+            print(1)
 
         elif is_valid(letter, result):
 
@@ -234,7 +235,7 @@ def gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, 
 
             elif len(letter) == len(result) and letter in guessed_word:
                 console.print('[red]Вы уже вводили это слово и собираетесь его снова использовать?')
-                show_info()
+                show_info(guessed_letters, guessed_word)
                 continue
 
             elif len(letter) == 1 and letter in result and letter not in guessed_letters:
@@ -258,7 +259,7 @@ def gaming(result, guessed_letters, guessed_word, word_as_lst, word_completion, 
 
 
 def again():
-    global STOP_GAME
+    # global STOP_GAME
     question = input('Желаете ли продолжить игру? (+/-) >> ')
     match question:
         case '+':
