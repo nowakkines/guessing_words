@@ -1,4 +1,4 @@
-# Guessing_words
+# Guessing Words
 ![GitHub last commit](https://img.shields.io/github/last-commit/ap7kj/guessing_words)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ap7kj/guessing_words)
 
